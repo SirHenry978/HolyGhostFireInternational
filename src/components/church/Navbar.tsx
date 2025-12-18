@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, X, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", href: "#home", isAnchor: true },
@@ -17,10 +17,19 @@ const navLinks = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToSection = (href: string) => {
     if (location.pathname !== "/") {
-      window.location.href = "/#" + href.substring(1);
+      // Navigate to home first, then scroll to section
+      navigate("/");
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+      setIsOpen(false);
       return;
     }
     const element = document.querySelector(href);
