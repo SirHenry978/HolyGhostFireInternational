@@ -1,6 +1,7 @@
 import { Flame, PlayCircle, ChevronDown, Users, Heart, BookOpen, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import bg5 from "@/assets/bg5.jpeg"; // Make sure bg5.jpg exists in src/assets
 
 const features = [
   {
@@ -42,7 +43,7 @@ export const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1478147427282-58a87a120781?w=1920&h=1080&fit=crop')"
+          backgroundImage: `url(${bg5})`
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/70 to-background" />
