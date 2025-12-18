@@ -2,20 +2,27 @@ import { useState } from "react";
 import { Menu, X, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Sermons", href: "#sermons" },
-  { name: "Events", href: "#events" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "#home", isAnchor: true },
+  { name: "About", href: "#about", isAnchor: true },
+  { name: "Services", href: "#services", isAnchor: true },
+  { name: "Sermons", href: "#sermons", isAnchor: true },
+  { name: "Events", href: "#events", isAnchor: true },
+  { name: "Leadership", href: "/leadership", isAnchor: false },
+  { name: "Contact", href: "#contact", isAnchor: true },
 ];
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const scrollToSection = (href: string) => {
+    if (location.pathname !== "/") {
+      window.location.href = "/#" + href.substring(1);
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -53,17 +60,27 @@ export const Navbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-accent"
-              >
-                {link.name}
-              </a>
+              link.isAnchor ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
+                  className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-accent"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-accent"
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -94,17 +111,28 @@ export const Navbar = () => {
           <nav className="lg:hidden py-4 border-t border-border/50 animate-fade-in">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                  className="px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-accent rounded-lg transition-colors"
-                >
-                  {link.name}
-                </a>
+                link.isAnchor ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(link.href);
+                    }}
+                    className="px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-accent rounded-lg transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-accent rounded-lg transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
               <Button
                 onClick={() => scrollToSection("#give")}

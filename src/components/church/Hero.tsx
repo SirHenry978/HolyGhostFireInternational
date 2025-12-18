@@ -14,10 +14,16 @@ export const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-fire/5" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--fire)/0.1),transparent_50%)]" />
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1478147427282-58a87a120781?w=1920&h=1080&fit=crop')"
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.25),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--fire)/0.15),transparent_50%)]" />
       
       {/* Animated elements */}
       <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" />
